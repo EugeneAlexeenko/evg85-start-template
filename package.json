@@ -1,0 +1,15 @@
+{
+  "name": "start-template",
+  "version": "1.0.0",
+  "description": "general html start template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eugene Alexeenko",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "postcss": "^5.2.6"
+  }
+}
