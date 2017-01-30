@@ -9,7 +9,6 @@
   "author": "Eugene Alexeenko",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "postcss": "^5.2.6"
+    "gulp": "^3.9.1"
   }
 }
