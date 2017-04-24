@@ -1,5 +1,5 @@
 {
-  "name": "start-template",
+  "name": "evg85-start-template",
   "version": "1.0.0",
   "description": "general html start template",
   "main": "index.js",
@@ -8,7 +8,9 @@
   "devDependencies": {
     "autoprefixer": "^6.7.1",
     "browser-sync": "^2.18.7",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0"
   }
 }
