@@ -1,23 +1,26 @@
 'use strict';
 
 var gulp         = require('gulp'),
-    del          = require('del'),
-    sourcemaps   = require('gulp-sourcemaps'),
+    del          = require('del'), //удаление файлов и папок
+    sourcemaps   = require('gulp-sourcemaps'), //изготовление sourcemaps
     sass         = require('gulp-sass'),
-    concat       = require('gulp-concat'),
+    concat       = require('gulp-concat'), //клеим файлы
     browsersync  = require('browser-sync');
 
 // настройка путей
 var path = {
+  // финальная сборка проекта
   build: {
     js: 'build/js/'
   },
+  // исходники
   src:   {
     sass:   'src/styles/main.scss',
     css:    'src/styles/',
     js:     'src/js/',
+    // нужные в проекте libs должны быть добавлены/раскомментированы
     libs:  ['src/libs/jquery-3.2.1.min.js',
-            'src/libs/Magnific-Popup/jquery.magnific-popup.min.js',
+            //'src/libs/Magnific-Popup/jquery.magnific-popup.min.js',
            ]
   },
   watch: {},
