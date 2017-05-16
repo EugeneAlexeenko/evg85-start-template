@@ -3,7 +3,8 @@
 var gulp         = require('gulp'),
     del          = require('del'), //удаление файлов и папок
     sourcemaps   = require('gulp-sourcemaps'), //изготовление sourcemaps
-    sass         = require('gulp-sass'),
+    sass         = require('gulp-sass'), //компиляция sass
+    cssnano      = require('gulp-cssnano'), //минификация css
     concat       = require('gulp-concat'), //клеим файлы
     preprocess   = require('gulp-preprocess'), //препроцессинг
     browsersync  = require('browser-sync');
@@ -41,13 +42,21 @@ gulp.task('clean', function() {
   return del(path.clean);
 });
 
-// Сборка всех стилей в main.css
-gulp.task('sass', function () {
+// Сборка стилей: режим development
+gulp.task('sass:dev', function () {
   return gulp.src(path.src.sass)
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(path.src.css));
+});
+
+// Сборка стилей: режим production
+gulp.task('sass:prod', function () {
+  return gulp.src(path.src.sass)
+    .pipe(sass())
+    .pipe(cssnano())
+    .pipe(gulp.dest(path.build.css));
 });
 
 // Сборка libs
