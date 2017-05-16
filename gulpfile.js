@@ -5,28 +5,34 @@ var gulp         = require('gulp'),
     sourcemaps   = require('gulp-sourcemaps'), //изготовление sourcemaps
     sass         = require('gulp-sass'),
     concat       = require('gulp-concat'), //клеим файлы
+    preprocess   = require('gulp-preprocess'), //препроцессинг
     browsersync  = require('browser-sync');
 
 // настройка путей
 var path = {
   // финальная сборка проекта
   build: {
-    js: 'build/js/'
+    root: 'build/',
+    css:  'build/css/',
+    js:   'build/js/'
   },
   // исходники
   src:   {
-    sass:   'src/styles/main.scss',
-    css:    'src/styles/',
-    js:     'src/js/',
+    root: 'src/',
+    html: 'src/html/**/*.html',
+    sass: 'src/styles/main.scss',
+    css:  'src/styles/',
+    js:   'src/js/',
     // нужные в проекте libs должны быть добавлены/раскомментированы
-    libs:  ['src/libs/jquery-3.2.1.min.js',
-            //'src/libs/Magnific-Popup/jquery.magnific-popup.min.js',
-           ]
+    libs: ['src/libs/jquery-3.2.1.min.js',
+           //'src/libs/Magnific-Popup/jquery.magnific-popup.min.js',
+          ]
   },
   watch: {},
   clean: ['build',
+          'src/index.html',
           'src/styles/main.css',
-          'src/js/libs.js',
+          'src/js/libs.js'
          ]
 };
 
@@ -34,7 +40,6 @@ var path = {
 gulp.task('clean', function() {
   return del(path.clean);
 });
-
 
 // Сборка всех стилей в main.css
 gulp.task('sass', function () {
@@ -50,6 +55,21 @@ gulp.task('libs', function() {
   return gulp.src(path.src.libs)
     .pipe(concat('libs.js'))
     .pipe(gulp.dest(path.src.js))
+});
+
+
+//Препроцессинг HTML: для режима development
+gulp.task('html:dev', function(){
+  gulp.src(path.src.html)
+    .pipe(preprocess({context: { NODE_ENV: 'development' }}))
+    .pipe(gulp.dest(path.src.root))
+});
+
+//Препроцессинг HTML: для режима production
+gulp.task('html:prod', function(){
+  gulp.src(path.src.html)
+    .pipe(preprocess({context: { NODE_ENV: 'production' }}))
+    .pipe(gulp.dest(path.build.root))
 });
 
 
