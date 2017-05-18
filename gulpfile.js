@@ -4,6 +4,7 @@ var gulp         = require('gulp'),
     del          = require('del'), //удаление файлов и папок
     sourcemaps   = require('gulp-sourcemaps'), //изготовление sourcemaps
     sass         = require('gulp-sass'), //компиляция sass
+    notify       = require('gulp-notify'), //вывод ошибок sass
     cssnano      = require('gulp-cssnano'), //минификация css
     concat       = require('gulp-concat'), //клеим файлы
     preprocess   = require('gulp-preprocess'), //препроцессинг
@@ -29,7 +30,10 @@ var path = {
            //'src/libs/Magnific-Popup/jquery.magnific-popup.min.js',
           ]
   },
-  watch: {},
+  watch: {
+    html: 'src/html/**/*.html',
+    sass: 'src/styles/**/*.scss'
+  },
   clean: ['build',
           'src/index.html',
           'src/styles/main.css',
@@ -46,15 +50,22 @@ gulp.task('clean', function() {
 gulp.task('sass:dev', function () {
   return gulp.src(path.src.sass)
     .pipe(sourcemaps.init())
-    .pipe(sass())
+    .pipe(sass().on("error", notify.onError({
+        message: "<%= error.message %>",
+        title  : "Sass Error!"
+      })))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(path.src.css));
+    .pipe(gulp.dest(path.src.css))
+    .pipe(notify("Sass - no errors!"))
 });
 
 // Сборка стилей: режим production
 gulp.task('sass:prod', function () {
   return gulp.src(path.src.sass)
-    .pipe(sass())
+    .pipe(sass().on("error", notify.onError({
+        message: "<%= error.message %>",
+        title  : "Sass Error!"
+      })))
     .pipe(cssnano())
     .pipe(gulp.dest(path.build.css));
 });
@@ -69,16 +80,37 @@ gulp.task('libs', function() {
 
 //Препроцессинг HTML: для режима development
 gulp.task('html:dev', function(){
-  gulp.src(path.src.html)
+  return gulp.src(path.src.html)
     .pipe(preprocess({context: { NODE_ENV: 'development' }}))
     .pipe(gulp.dest(path.src.root))
 });
 
 //Препроцессинг HTML: для режима production
 gulp.task('html:prod', function(){
-  gulp.src(path.src.html)
+  return gulp.src(path.src.html)
     .pipe(preprocess({context: { NODE_ENV: 'production' }}))
     .pipe(gulp.dest(path.build.root))
+});
+
+
+//Список задач режима development
+gulp.task('dev', [
+  'clean',
+  'html:dev',
+  'sass:dev'
+]);
+
+//Список задач режима production
+gulp.task('prod', [
+  'clean',
+  'html:prod',
+  'sass:prod'
+]);
+
+//Отслеживание изменений
+gulp.task('watch', function(){
+  gulp.watch(path.watch.html, ['html:dev']);
+  gulp.watch(path.watch.sass, ['sass:dev']);
 });
 
 
