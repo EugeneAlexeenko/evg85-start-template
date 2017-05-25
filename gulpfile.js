@@ -104,7 +104,6 @@ gulp.task('libs', function(){
     .pipe(gulp.dest(path.src.js))
 });
 
-
 //Препроцессинг HTML: для режима development
 gulp.task('html:dev', function(){
   return gulp.src(path.src.html)
@@ -118,7 +117,6 @@ gulp.task('html:prod', function(){
     .pipe(preprocess({context: { NODE_ENV: 'production' }}))
     .pipe(gulp.dest(path.build.root))
 });
-
 
 //Список задач режима development
 gulp.task('dev', [

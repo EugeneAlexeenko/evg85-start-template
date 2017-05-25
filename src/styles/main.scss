@@ -1,5 +1,10 @@
-//импорт стилей из libs
-//@import "../libs/Magnific-Popup/magnific-popup"
+// В этом файле только подключения.
 
+// импорт стилей из libs
+@import "../libs/Magnific-Popup/magnific-popup";
 
-//пользовательские стили
+// подключение шрифтов
+@import "fonts";
+
+// пользовательские стили
+//@import "styles"
