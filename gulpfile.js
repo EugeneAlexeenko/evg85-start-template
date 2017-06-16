@@ -21,21 +21,25 @@ var path = {
   },
   // исходники
   src:   {
-    root: 'src/',
-    html: 'src/html/**/*.html',
-    sass: 'src/styles/main.scss',
-    css:  'src/styles/',
-    js:   'src/js/',
+    root:  'src/',
+    fonts: 'src/fonts/',
+    html:  'src/html/**/*.html',
+    img:   'src/img/',
+    sass:  'src/styles/main.scss',
+    css:   'src/styles/',
+    js:    'src/js/',
     // нужные в проекте libs должны быть добавлены/раскомментированы
-    libs: ['src/libs/jquery-3.2.1.min.js',
+    libs:  ['src/libs/jquery-3.2.1.min.js',
            //'src/libs/Magnific-Popup/jquery.magnific-popup.min.js',
-          ]
+           ]
   },
+  // наблюдение за изменениями
   watch: {
     html: 'src/html/**/*.html',
     sass: 'src/styles/**/*.scss',
     js:   'src/js/**/*.js'
   },
+  // зачистка
   clean: ['build',
           'src/index.html',
           'src/styles/main.css',
