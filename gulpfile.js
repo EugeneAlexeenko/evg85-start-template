@@ -29,7 +29,7 @@ var path = {
     css:   'src/styles/',
     js:    'src/js/',
     // нужные в проекте libs должны быть добавлены/раскомментированы
-    libs:  ['src/libs/jquery-3.2.1.min.js',
+    libs:  ['src/libs/jquery/jquery-3.2.1.min.js',
            //'src/libs/Magnific-Popup/jquery.magnific-popup.min.js',
            ]
   },
